@@ -11,15 +11,15 @@ const Home = () => {
         justifyContent={'center'}
         bg='white'
         w='100%'
-        m='40px 0 15px 0'
+        m='10px 0 10px 0'
         borderRadius='lg'
         borderWidth='1px'
         >
-          <Text textAlign='center' fontSize='4xl' fontFamily='red hat display'>JUST-TALK</Text>
+          <Text textAlign='center' fontSize='4xl' fontFamily='red hat display'>BABBLE</Text>
         </Box>
-        <Box bg='white' w='100%' p={4} borderRadius='lg' borderWidth='1px' >
-          <Tabs variant='soft-rounded'>
-            <TabList mb='2em'>
+        <Box bg='#F8F8FF' w='100%' p={4} borderRadius='lg' borderWidth='1px' >
+          <Tabs>
+            <TabList>
               <Tab w='50%'>Log in</Tab>
               <Tab w='50%'>Sign up</Tab>
             </TabList>
