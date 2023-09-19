@@ -3,8 +3,10 @@ const dotenv=require('dotenv');
 const {chats}=require("./data/data");
 const connectDB = require("./config/db");
 const userRoutes = require("./routes/userRoutes");
+// const bodyParser = require("body-parser");
 
 const app = express();
+app.use(express.json());
 
 dotenv.config();
 connectDB();
