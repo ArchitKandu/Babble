@@ -1,9 +1,8 @@
 const express=require("express");
 const dotenv=require('dotenv');
-const {chats}=require("./data/data");
 const connectDB = require("./config/db");
 const userRoutes = require("./routes/userRoutes");
-// const bodyParser = require("body-parser");
+const { notFound, errorHandlers } = require('./middleware/errorMiddleware');
 
 const app = express();
 app.use(express.json());
@@ -16,5 +15,7 @@ app.get("/",(req,res)=>{
 }) //SIMPLE API CALLED
 
 app.use('/api/user',userRoutes);
+app.use(notFound);
+app.use(errorHandlers);
 
 app.listen(5000,console.log("Server started on PORT 5000!!"));
