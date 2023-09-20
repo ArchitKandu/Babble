@@ -1,4 +1,5 @@
 import { FormControl, FormLabel , Input, InputGroup, InputRightElement, VStack, Button } from '@chakra-ui/react';
+import { useToast } from '@chakra-ui/react'
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
@@ -11,10 +12,55 @@ const Signup = () => {
     const [confirmPassword, setConfirmPassword]=useState();
     const [cshow, setCShow]=useState(false);
     const [pic, setPic]=useState();
+    const [loading, setLoading]=useState(false);
+    const toast = useToast();
 
     const handlePShow = ()=>setPShow(!pshow);
     const handleCShow = ()=>setCShow(!cshow);
-    const postDetails = () =>{};
+
+    const postDetails = (pics) =>{
+        setLoading(true);
+        console.log(pics);
+        if(pics===undefined){
+            toast({
+                title: 'Please select an Image!',
+                status: 'warning',
+                duration: 5000,
+                isClosable: true,
+                position: 'bottom'
+            });
+            return;
+        };
+        if(pics.type==='image/jpeg' || pics.type==='image/png'){
+            const data = new FormData();
+            data.append('file',pics);
+            data.append('upload_preset','chat-app');
+            data.append('cloud_name','babble');
+            console.log(data);
+            fetch('https://api.cloudinary.com/v1_1/babble/upload',{
+                method:'POST',
+                body:data
+            })
+            .then((res)=>res.json())
+            .then((data)=>{
+                setPic(data['url'].toString());
+                setLoading(false);
+            })
+            .catch((err)=>{
+                console.log(err);
+                setLoading(false);
+            });
+        }else{
+            toast({
+                title: 'Please select an Image!',
+                status: 'warning',
+                duration: 5000,
+                isClosable: true,
+                position: 'bottom'
+            });
+            return;
+        };
+    };
     const handleSignUp = () =>{};
 
     const show=<FontAwesomeIcon icon={faEye}/>
@@ -74,7 +120,7 @@ const Signup = () => {
             <FormLabel>Input Your Image</FormLabel>
             <Input
                 type='file'
-                accept="image/*"
+                accept="image/jpeg, image/png"
                 p={1.5}
                 onChange={(e)=>postDetails(e.target.value[0])}
             />
@@ -86,6 +132,7 @@ const Signup = () => {
             width='100%'
             style={{ marginTop: 15 }}
             onClick={handleSignUp}
+            isLoading={loading}
         >
             Sign Up
         </Button>
