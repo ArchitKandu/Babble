@@ -1,15 +1,61 @@
-import { Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, VStack } from '@chakra-ui/react';
+import { Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, VStack, useToast } from '@chakra-ui/react';
 import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 const Login = () => {
     const [email, setEmail]=useState();
     const [password, setPassword]=useState();
     const [pshow, setPShow]=useState(false);
+    const [loading, setLoading]=useState(false);
+    const toast=useToast(); 
+    const history=useHistory();
 
     const handlePShow = ()=>setPShow(!pshow);
-    const handleLogIn = () =>{};
+    const handleLogIn = () =>{
+        setLoading(true);
+        if(!email || !password) {
+            toast({
+                title: 'Please Fill All The Details !',
+                status: 'warning',
+                duration: 5000,
+                position: 'bottom',
+                isClosable: true
+            });
+            setLoading(false);
+            return;
+        };
+        try {
+            const config = {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            };
+            const { data } = axios.post('/api/user/login',{ email,password }, config);
+            toast({
+                title:"Logged In Successfully !",
+                status : "success",
+                duration: 5000,
+                isClosable: true,
+                position: 'bottom'
+            });
+            localStorage.setItem('userInfo',JSON.stringify(data));
+            setLoading(false);
+            history.push('/chats');
+        } catch (error) {
+            toast({
+                title: 'Error Occured !',
+                description: error.response.data.message,
+                status :"error",
+                duration:3000 ,
+                isClosable: true,
+                position: 'bottom'
+            });
+            setLoading(false);
+        };
+    };
 
     const show=<FontAwesomeIcon icon={faEye}/>
     const hide=<FontAwesomeIcon icon={faEyeSlash}/>
@@ -20,6 +66,7 @@ const Login = () => {
             <FormLabel>Email</FormLabel>
             <Input
                 placeholder='Enter Your Email'
+                value={email}
                 onChange={(e)=>setEmail(e.target.value)}
             />
         </FormControl>
@@ -31,6 +78,7 @@ const Login = () => {
                 <Input
                     type={pshow?'text':'password'}
                     placeholder='Enter Your Password'
+                    value={password}
                     onChange={(e)=>setPassword(e.target.value)}
                 />
                 <InputRightElement width='4.5rem'>
@@ -45,6 +93,7 @@ const Login = () => {
             width='100%'
             style={{ marginTop: 15 }}
             onClick={handleLogIn}
+            isLoading={loading}
         >
             Log In
         </Button>

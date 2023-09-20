@@ -93,7 +93,7 @@ const Signup = () => {
             };
             const { data } = axios.post('/api/user',{ name,email,password,pic }, config);
             toast({
-                title:"User Created Successfully",
+                title:"User Created Successfully !",
                 status : "success",
                 duration: 5000,
                 isClosable: true,
