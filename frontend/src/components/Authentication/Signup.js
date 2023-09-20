@@ -1,5 +1,4 @@
-import { FormControl, FormLabel , Input, InputGroup, InputRightElement, VStack, Button } from '@chakra-ui/react';
-import { useToast } from '@chakra-ui/react'
+import { FormControl, FormLabel , Input, InputGroup, InputRightElement, VStack, Button, useToast } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
