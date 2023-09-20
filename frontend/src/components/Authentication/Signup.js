@@ -42,7 +42,7 @@ const Signup = () => {
             })
             .then((res)=>res.json())
             .then((data)=>{
-                setPic(data['url'].toString());
+                setPic(data.url.toString());
                 setLoading(false);
             })
             .catch((err)=>{
@@ -119,9 +119,9 @@ const Signup = () => {
             <FormLabel>Input Your Image</FormLabel>
             <Input
                 type='file'
-                accept="image/jpeg, image/png"
+                accept='image/*'
                 p={1.5}
-                onChange={(e)=>postDetails(e.target.value[0])}
+                onChange={(e)=>postDetails(e.target.files[0])}
             />
         </FormControl>
 
