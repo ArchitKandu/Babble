@@ -1,7 +1,9 @@
 import { FormControl, FormLabel , Input, InputGroup, InputRightElement, VStack, Button, useToast } from '@chakra-ui/react';
 import React, { useState } from 'react';
+import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
+import {useHistory} from 'react-router-dom';
 
 const Signup = () => {
     const [name, setName]=useState();
@@ -13,16 +15,16 @@ const Signup = () => {
     const [pic, setPic]=useState();
     const [loading, setLoading]=useState(false);
     const toast = useToast();
+    const history = useHistory();
 
     const handlePShow = ()=>setPShow(!pshow);
     const handleCShow = ()=>setCShow(!cshow);
 
     const postDetails = (pics) =>{
         setLoading(true);
-        console.log(pics);
         if(pics===undefined){
             toast({
-                title: 'Please select an Image!',
+                title: 'Please select an Image !',
                 status: 'warning',
                 duration: 5000,
                 isClosable: true,
@@ -35,7 +37,6 @@ const Signup = () => {
             data.append('file',pics);
             data.append('upload_preset','chat-app');
             data.append('cloud_name','babble');
-            console.log(data);
             fetch('https://api.cloudinary.com/v1_1/babble/upload',{
                 method:'POST',
                 body:data
@@ -51,7 +52,7 @@ const Signup = () => {
             });
         }else{
             toast({
-                title: 'Please select an Image!',
+                title: 'Please select an Image !',
                 status: 'warning',
                 duration: 5000,
                 isClosable: true,
@@ -60,7 +61,59 @@ const Signup = () => {
             return;
         };
     };
-    const handleSignUp = () =>{};
+    const handleSignUp = async () =>{
+        setLoading(true);
+        if(!name || !email || !password || !confirmPassword){
+            toast({
+                title:'Please fill all the Datails !',
+                status: 'warning',
+                duration: 5000,
+                isClosable: true,
+                position: 'bottom'
+            });
+            setLoading(false);
+            return;
+        }
+        if(password !== confirmPassword){
+            toast({
+                title:'Password and Confirm Password does not Match !',
+                status: 'warning',
+                duration: 5000,
+                isClosable: true,
+                position: 'bottom'
+            });
+            setLoading(false);
+            return;
+        }
+        try {
+            const config = {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            };
+            const { data } = axios.post('/api/user',{ name,email,password,pic }, config);
+            toast({
+                title:"User Created Successfully",
+                status : "success",
+                duration: 5000,
+                isClosable: true,
+                position: 'bottom'
+            });
+            localStorage.setItem('userInfo',JSON.stringify(data));
+            setLoading(false);
+            history.push('/chats');
+        } catch (error) {
+            toast({
+                title: 'Error Occured !',
+                description: error.response.data.message,
+                status :"error",
+                duration:3000 ,
+                isClosable: true,
+                position: 'bottom'
+            });
+            setLoading(false);
+        };
+    };
 
     const show=<FontAwesomeIcon icon={faEye}/>
     const hide=<FontAwesomeIcon icon={faEyeSlash}/>
