@@ -52,15 +52,15 @@ const authUser = asyncHandlers(async (req, res) => {
 });
 
 const allUser = asyncHandlers(async (req,res)=>{
-    // const regex = new RegExp(req.query.search);
+    const searchRegex = new RegExp(req.query.search, 'i');
     const keyword = req.query.search ? {
         $or:[
-            { name:{ $regex: /req.query.search/i } },
-            { email:{ $regex: /req.query.search/i } }
+            { name:{ $regex: searchRegex } },
+            { email:{ $regex: searchRegex } }
         ]
     } : {};
-    const users = await User.find(keyword);
+    const users = await User.find(keyword).find( { _id: { $ne: req.user._id } } );
     res.send(users);
 });
 
-module.exports = { registerUser, authUser, allUser };
+module.exports = { registerUser, authUser, allUser }; 
