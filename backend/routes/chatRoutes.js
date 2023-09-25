@@ -4,11 +4,11 @@ const { accessChat } = require('../controllers/chatControllers');
 
 const router = express.Router();
 
-router.use('/').post(protect, accessChat);
-// router.use('/').get(protect, fetchChats);
-// router.use('/group').post(protect, createGroupChat);
-// router.use('/rename').put(protect, renameGroup);
-// router.use('/groupremove').put(protect, removeFromGroup);
-// router.use('/groupadd').put(protect,addToGroup);
+router.post('/', protect, accessChat);
+// router.get('/', protect, fetchChats);
+// router.post('/group', protect, createGroupChat);
+// router.put('/rename', protect, renameGroup);
+// router.put('/groupremove', protect, removeFromGroup);
+// router.put('/groupadd', protect,addToGroup);
 
 module.exports = router;

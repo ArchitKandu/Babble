@@ -7,8 +7,6 @@ const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
 const app = express();
 app.use(express.json());
-app.use(notFound);
-app.use(errorHandler);
 
 dotenv.config();
 connectDB();
@@ -19,5 +17,7 @@ app.get("/",(req,res)=>{
 
 app.use('/api/user', userRoutes);
 app.use('/api/chat', chatRoutes);
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(5000,console.log("Server started on PORT 5000!!"));
