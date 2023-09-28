@@ -6,15 +6,23 @@ const ChatProvider = ({ children }) => {
     const [user, setUser] = useState();
     const history = useHistory();
     useEffect(()=>{
-        const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-        setUser(userInfo);
-        if(!userInfo){
-            history.push('/');
+        const userInfo = localStorage.getItem('userInfo');
+        if(userInfo){
+            try {
+                const userIn = JSON.parse(userInfo);
+                setUser(userIn);
+                if(!userIn){
+                    history.push('/');
+                    return;
+                }
+            } catch (error) {
+                console.error('Error parsing userInfo from localStorage:', error);
+            }
         }
     },[history]);
     return <ChatContext.Provider value={{user, setUser}}>{children}</ChatContext.Provider>;
 }
-export const ChatState = () => {
+export const useChatState = () => {
     return useContext(ChatContext);
 }
 

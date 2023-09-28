@@ -1,17 +1,19 @@
 import { Box } from "@chakra-ui/react";
-import { ChatState } from "../context/chatProvider"
+import { useChatState } from "../context/chatProvider";
+import SideDrawer from "../components/miscellaneous/SideDrawer";
 
 const Chats = () => {
-    const { user } = ChatState();
+    const { user } = useChatState();
+    console.log("User:", user);
     return (
         <div style={{ width: "100%" }}>
-            {/* { user && <SideDrawer/> } */}
+            { user && <SideDrawer/> }
             <Box>
                 {/* { user && <MyChats/> } */}
                 {/* { user && <ChatBox/> } */}
             </Box>
         </div>
-    )
+    );
 }
 
 export default Chats;

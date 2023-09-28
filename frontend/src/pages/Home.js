@@ -4,11 +4,23 @@ import Login from '../components/Authentication/Login';
 import Signup from '../components/Authentication/Signup';
 import { useHistory } from 'react-router-dom';
 const Home = () => {
-  history = useHistory();
+  const history = useHistory();
   useEffect(()=>{
-    const user = JSON.parse(localStorage.getItem('userInfo'));
-    if (user)  window.location='/chats';
+    const userInfo = localStorage.getItem('userInfo');
+    if(userInfo){
+      try {
+        const user = JSON.parse(userInfo);
+        if(user){
+          history.push('/chats');
+          return;
+        }
+      } catch (error) {
+        console.error('Error parsing userInfo from localStorage:', error);
+      }
+    }
   },[history]);
+
+
   return (
     <Container maxW='xl' centerContent className='homePage'>
       <Box
