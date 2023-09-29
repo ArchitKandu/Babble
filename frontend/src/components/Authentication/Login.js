@@ -6,15 +6,15 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 const Login = () => {
-    const [email, setEmail]=useState();
-    const [password, setPassword]=useState();
+    const [email, setEmail]=useState('');
+    const [password, setPassword]=useState('');
     const [pshow, setPShow]=useState(false);
     const [loading, setLoading]=useState(false);
     const toast=useToast(); 
     const history=useHistory();
 
     const handlePShow = ()=>setPShow(!pshow);
-    const handleLogIn = () =>{
+    const handleLogIn = async () =>{
         setLoading(true);
         if(!email || !password) {
             toast({
@@ -33,7 +33,8 @@ const Login = () => {
                     "Content-Type": "application/json"
                 }
             };
-            const { data } = axios.post('/api/user/login',{ email,password }, config);
+            const response = await axios.post('/api/user/login',{ email,password }, config);
+            const data = response.data;
             toast({
                 title:"Logged In Successfully !",
                 status : "success",
