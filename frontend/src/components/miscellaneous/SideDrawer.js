@@ -1,14 +1,26 @@
-import { Box, Button, Menu, MenuButton, MenuList, Text, Tooltip } from '@chakra-ui/react';
+import { Avatar, Box, Button, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Text, Tooltip } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { BellIcon } from '@chakra-ui/icons';
+import { BellIcon, ChevronDownIcon } from '@chakra-ui/icons';
+import { useChatState } from '../../context/chatProvider';
+import ProfileModals from './ProfileModals';
+import { useHistory } from 'react-router-dom';
 
 const SideDrawer = () => {
   const [ search, setSearch ] = useState('');
   const [ searchResult, setSearchResult ] = useState([]);
   const [ loading, setLoading ] = useState(false);
   const [ loadingChat, setLoadingChat ] = useState(false);
+
+  const { user } = useChatState();
+  const history = useHistory();
+
+  const logoutHandler = () => {
+    localStorage.removeItem('userInfo');
+    history.push('/');
+  }
+
   return (
     <>
      <Box
@@ -36,6 +48,18 @@ const SideDrawer = () => {
               <BellIcon fontSize='2xl' m={1}/>
             </MenuButton>
             {/* <MenuList></MenuList> */}
+            <Menu>
+              <MenuButton as={Button} rightIcon={<ChevronDownIcon/>}>
+                  <Avatar size='sm' cursor='pointer' name={user.name} src={user.pic}/>
+              </MenuButton>
+              <MenuList>
+                <ProfileModals user={user}>
+                  <MenuItem>My Profile</MenuItem>
+                </ProfileModals>
+                <MenuDivider/>
+                <MenuItem onClick={logoutHandler}>Logout</MenuItem>
+              </MenuList>
+            </Menu>
           </Menu>
         </div>
       </Box> 
