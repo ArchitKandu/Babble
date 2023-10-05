@@ -77,10 +77,7 @@ const SideDrawer = () => {
   };
   const accessChat = (userId) => {
     try {
-      
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   };
 
   return (
