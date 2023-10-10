@@ -8,7 +8,9 @@ import {
   ModalHeader,
   ModalOverlay,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
+import { useChatState } from "../../context/chatProvider";
 import React, { useState } from "react";
 
 const GroupChatModal = ({ children }) => {
@@ -16,8 +18,10 @@ const GroupChatModal = ({ children }) => {
   const [ groupName, setGroupName ] = useState();
   const [selectedUsers, setselectedUsers ] = useState([]);
   const [ search, setSearch ] = useState('');
-  const [ searchResult, setSearchResult ] = useState();
+  const [ searchResult, setSearchResult ] = useState([]);
   const [ loading, setLoading ] = useState(false);
+  const toast = useToast();
+  const { user, chats, setChats } = useChatState();
   return (
     <>
       <span onClick={onOpen}>{children}</span>
