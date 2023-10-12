@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { useChatState } from "../../context/chatProvider";
 import React, { useState } from "react";
+import axios from "axios";
 
 const GroupChatModal = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -25,7 +26,31 @@ const GroupChatModal = ({ children }) => {
   const toast = useToast();
   const { user, chats, setChats } = useChatState();
 
-  const handleSearch = () => {};
+  const handleSearch = async (query) => {
+    if (!query) return;
+    try {
+      setLoading(true);
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      const { data } = await axios.get(`/api/user?search=${query}`, config);
+      console.log(data)
+      setSearch(query);
+      setLoading(false);
+      setSearchResult(data);
+    } catch (error) {
+      toast({
+        title: "Error Occured !",
+        description: "Failed to load search result",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-left",
+      });
+    }
+  };
   const handleSubmit = () => {};
 
   return (
