@@ -15,6 +15,7 @@ import {
 import { useChatState } from "../../context/chatProvider";
 import React, { useState } from "react";
 import axios from "axios";
+import UserListItem from "../UserAvatar/UserListItem";
 
 const GroupChatModal = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -36,7 +37,7 @@ const GroupChatModal = ({ children }) => {
         },
       };
       const { data } = await axios.get(`/api/user?search=${query}`, config);
-      console.log(data)
+      console.log(data);
       setSearch(query);
       setLoading(false);
       setSearchResult(data);
@@ -52,6 +53,7 @@ const GroupChatModal = ({ children }) => {
     }
   };
   const handleSubmit = () => {};
+  const handleGroup = () => {};
 
   return (
     <>
@@ -79,8 +81,20 @@ const GroupChatModal = ({ children }) => {
                 onChange={(e) => handleSearch(e.target.value)}
               />
             </FormControl>
-            {/* selected users
-            render search users */}
+            {/* selected users*/}
+            {loading ? (
+              <div>loading...</div>
+            ) : (
+              searchResult
+                ?.slice(0, 4)
+                .map((user) => (
+                  <UserListItem
+                    key={user._id}
+                    user={user}
+                    handleFunction={() => handleGroup(user)}
+                  />
+                ))
+            )}
           </ModalBody>
 
           <ModalFooter>
