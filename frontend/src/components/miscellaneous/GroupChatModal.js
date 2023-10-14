@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   FormControl,
   Input,
@@ -16,11 +17,12 @@ import { useChatState } from "../../context/chatProvider";
 import React, { useState } from "react";
 import axios from "axios";
 import UserListItem from "../UserAvatar/UserListItem";
+import UserBadgeItem from "../UserAvatar/UserBadgeItem";
 
 const GroupChatModal = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [groupName, setGroupName] = useState();
-  const [selectedUsers, setselectedUsers] = useState([]);
+  const [selectedUsers, setSelectedUsers] = useState([]);
   // const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -61,7 +63,10 @@ const GroupChatModal = ({ children }) => {
         position: "top",
       });
     }
-    setselectedUsers([...selectedUsers, userToAdd]);
+    setSelectedUsers([...selectedUsers, userToAdd]);
+  };
+  const handleDelete = (delUser) => {
+    setSelectedUsers(selectedUsers.filter(sel=>sel._id!==delUser._id));
   };
 
   return (
@@ -90,7 +95,15 @@ const GroupChatModal = ({ children }) => {
                 onChange={(e) => handleSearch(e.target.value)}
               />
             </FormControl>
-            {/* selected users*/}
+            <Box display="flex" w="100%" flexWrap="wrap" colorScheme="purple">
+              {selectedUsers.map((u) => (
+                <UserBadgeItem
+                  key={u._id}
+                  user={u}
+                  handleFunction={() => handleDelete(u)}
+                />
+              ))}
+            </Box>
             {loading ? (
               <div>loading...</div>
             ) : (
