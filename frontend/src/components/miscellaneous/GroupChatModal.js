@@ -21,7 +21,7 @@ const GroupChatModal = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [groupName, setGroupName] = useState();
   const [selectedUsers, setselectedUsers] = useState([]);
-  const [search, setSearch] = useState("");
+  // const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
   const toast = useToast();
@@ -37,8 +37,6 @@ const GroupChatModal = ({ children }) => {
         },
       };
       const { data } = await axios.get(`/api/user?search=${query}`, config);
-      console.log(data);
-      setSearch(query);
       setLoading(false);
       setSearchResult(data);
     } catch (error) {
