@@ -51,7 +51,18 @@ const GroupChatModal = ({ children }) => {
     }
   };
   const handleSubmit = () => {};
-  const handleGroup = () => {};
+  const handleGroup = (userToAdd) => {
+    if (selectedUsers.includes(userToAdd)) {
+      toast({
+        title: "User Already Added !",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+        position: "top",
+      });
+    }
+    setselectedUsers([...selectedUsers, userToAdd]);
+  };
 
   return (
     <>
