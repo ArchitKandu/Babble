@@ -3,7 +3,7 @@ import { useChatState } from "../context/chatProvider";
 import { Box, IconButton, Text } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { getSender, getSenderFull } from "../config/chatLogic";
-import ProfileModals from "./miscellaneous/ProfileModals"
+import ProfileModals from "./miscellaneous/ProfileModals";
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const { user, selectedChat, setSelectedChat } = useChatState();
@@ -37,6 +37,19 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               </>
             )}
           </Text>
+          <Box
+            display="flex"
+            flexDir="column"
+            justifyContent="flex-end"
+            p={3}
+            bg="#E8E8E8"
+            w="100%"
+            h="100%"
+            borderRadius="lg"
+            overflowY="hidden"
+          >
+            Messages Here
+          </Box>
         </>
       ) : (
         <Box
