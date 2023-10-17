@@ -12,6 +12,8 @@ import {
   IconButton,
   useToast,
   Box,
+  FormControl,
+  Input,
 } from "@chakra-ui/react";
 import { ViewIcon } from "@chakra-ui/icons";
 import { useChatState } from "../../context/chatProvider";
@@ -27,7 +29,10 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain }) => {
 
   const toast = useToast();
   const { selectedChat, setSelectedChat, user } = useChatState();
+
   const handleRemove = () => {};
+  const handleRename = () => {};
+  const handleSearch = () => {};
 
   return (
     <>
@@ -54,11 +59,35 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain }) => {
                 />
               ))}
             </Box>
+            <FormControl display="flex">
+              <Input
+                placeholder="Chat Name"
+                mb={3}
+                value={groupChatName}
+                onChange={(e) => setGroupChatName(e.target.value)}
+              />
+              <Button
+                variant="solid"
+                colorScheme="teal"
+                ml={1}
+                isLoading={renameLoading}
+                onClick={handleRename}
+              >
+                Update
+              </Button>
+            </FormControl>
+            <FormControl>
+              <Input
+                placeholder="Add User To Group"
+                mb={1}
+                onChange={(e) => handleSearch(e.target.value)}
+              />
+            </FormControl>
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Close
+            <Button colorScheme="red" onClick={() => handleRemove(user)}>
+              Leave Group
             </Button>
           </ModalFooter>
         </ModalContent>
