@@ -20,7 +20,10 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const { user, selectedChat, setSelectedChat } = useChatState();
 
   const sendMessage = () => {};
-  const typingHandler = () => {};
+  const typingHandler = (e) => {
+    setNewMessage(e.target.value);
+    // Typing Indicator
+  };
 
   return (
     <>
