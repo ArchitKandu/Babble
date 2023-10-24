@@ -7,19 +7,52 @@ import {
   Input,
   Spinner,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { getSender, getSenderFull } from "../config/chatLogic";
 import ProfileModals from "./miscellaneous/ProfileModals";
 import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal";
+import axios from "axios";
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [newMessage, setNewMessage] = useState();
   const { user, selectedChat, setSelectedChat } = useChatState();
+  const toast = useToast();
 
-  const sendMessage = () => {};
+  const sendMessage = async (event) => {
+    if (event.key === "Enter" && newMessage) {
+      try {
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+        };
+        setNewMessage("");
+        const { data } = await axios.post(
+          "/api/message",
+          {
+            content: newMessage,
+            chatId: selectedChat._id,
+          },
+          config
+        );
+        setMessages([...messages, data]);
+      } catch (error) {
+        toast({
+          title: "Error Occured !",
+          description: "Failed to send message",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+      }
+    }
+  };
   const typingHandler = (e) => {
     setNewMessage(e.target.value);
     // Typing Indicator
