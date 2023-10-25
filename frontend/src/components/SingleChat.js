@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useChatState } from "../context/chatProvider";
 import {
   Box,
@@ -14,6 +14,7 @@ import { getSender, getSenderFull } from "../config/chatLogic";
 import ProfileModals from "./miscellaneous/ProfileModals";
 import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal";
 import axios from "axios";
+import "./styles.css";
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const [messages, setMessages] = useState([]);
@@ -21,6 +22,37 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const [newMessage, setNewMessage] = useState();
   const { user, selectedChat, setSelectedChat } = useChatState();
   const toast = useToast();
+
+  const fetchMessages = async () => {
+    if (!selectedChat) return;
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      setLoading(true);
+      const { data } = await axios.get(
+        `/api/message/${selectedChat._id}`,
+        config
+      );
+      setMessages(data);
+      setLoading(false);
+    } catch (error) {
+      toast({
+        title: "Error Occured !",
+        description: "Failed to load messages",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+    }
+  };
+
+  useEffect(() => {
+    fetchMessages();
+  }, [selectedChat]);
 
   const sendMessage = async (event) => {
     if (event.key === "Enter" && newMessage) {
@@ -87,6 +119,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 <UpdateGroupChatModal
                   fetchAgain={fetchAgain}
                   setFetchAgain={setFetchAgain}
+                  fetchMessages={fetchMessages}
                 />
               </>
             )}
@@ -111,7 +144,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 margin="auto"
               />
             ) : (
-              <div>{/*Messages*/}</div>
+              <div className="messages">{/*Messages*/}</div>
             )}
             <FormControl onKeyDown={sendMessage} mt={3} isRequired>
               <Input
