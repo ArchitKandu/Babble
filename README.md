@@ -13,9 +13,9 @@ Babble is a full-stack chat application built using the MERN (MongoDB, Express.j
 
 ## Demo
 
-Check out the live demo: [Babble Chat Application](https://your-demo-link-here.com)
+<!-- Check out the live demo: [Babble Chat Application](https://your-demo-link-here.com) -->
 
-![Babble Screenshot](screenshots/babble-screenshot.png)
+<!-- ![Babble Screenshot](screenshots/babble-screenshot.png) -->
 
 ## Features
 
@@ -35,7 +35,7 @@ Check out the live demo: [Babble Chat Application](https://your-demo-link-here.c
 - **Database**: MongoDB
 - **Authentication**: JSON Web Tokens (JWT)
 - **Cloud Storage**: Cloudinary (for avatars)
-- **Deployment**: Heroku, Netlify
+<!-- - **Deployment**: Heroku, Netlify -->
 
 ## Installation
 
