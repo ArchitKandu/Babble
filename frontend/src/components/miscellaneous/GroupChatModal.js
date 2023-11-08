@@ -29,7 +29,7 @@ const GroupChatModal = ({ children }) => {
   const { user, chats, setChats } = useChatState();
 
   const handleSearch = async (query) => {
-    if (!query){
+    if (!query) {
       setSearchResult([]);
       return;
     }
