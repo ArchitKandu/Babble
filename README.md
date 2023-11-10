@@ -10,11 +10,8 @@ Babble is a full-stack chat application built using the MERN (MongoDB, Express.j
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Demo
-
-<!-- ![Babble Screenshot](screenshots/babble-screenshot.png) -->
 
 - Login/Signup Page:
   <img src="screenshots/Login-Signup.png" alt="Login Sign Up Page">
@@ -23,7 +20,7 @@ Babble is a full-stack chat application built using the MERN (MongoDB, Express.j
   <img src="screenshots/Single-Chat.png" alt="Single Chats">
 
 - Group Chats:
-  <img src="screenshots/Group-Chats.png" alt="Group Chats">
+  <img src="screenshots/Group-Chat-and-Details.png" alt="Group Chats">
 
 - User Profile:
   <img src="screenshots/User-Profile.png" alt="User Profile">
