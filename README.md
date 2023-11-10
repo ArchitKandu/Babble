@@ -13,8 +13,6 @@ Babble is a full-stack chat application built using the MERN (MongoDB, Express.j
 
 ## Demo
 
-<!-- Check out the live demo: [Babble Chat Application](https://your-demo-link-here.com) -->
-
 <!-- ![Babble Screenshot](screenshots/babble-screenshot.png) -->
 
 ## Features
@@ -35,12 +33,11 @@ Babble is a full-stack chat application built using the MERN (MongoDB, Express.j
 - **Database**: MongoDB
 - **Authentication**: JSON Web Tokens (JWT)
 - **Cloud Storage**: Cloudinary (for avatars)
-<!-- - **Deployment**: Heroku, Netlify -->
 
 ## Installation
 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/babble.git
+   git clone https://github.com/ArchitKandu/Babble.git
    cd babble
