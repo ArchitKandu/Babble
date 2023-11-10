@@ -3,6 +3,7 @@
 Babble is a full-stack chat application built using the MERN (MongoDB, Express.js, React, Node.js) stack. It allows users to create accounts, join chat rooms, and engage in real-time conversations with other users. With features like user authentication, group chats, and more, Babble provides a seamless and interactive chatting experience.
 
 ## Table of Contents
+
 - [Demo](#demo)
 - [Features](#features)
 - [Technologies](#technologies)
@@ -14,6 +15,18 @@ Babble is a full-stack chat application built using the MERN (MongoDB, Express.j
 ## Demo
 
 <!-- ![Babble Screenshot](screenshots/babble-screenshot.png) -->
+
+- Login/Signup Page:
+  <img src="screenshots/Login-Signup.png" alt="Login Sign Up Page">
+
+- Single Chat:
+  <img src="screenshots/Single-Chat.png" alt="Single Chats">
+
+- Group Chats:
+  <img src="screenshots/Group-Chats.png" alt="Group Chats">
+
+- User Profile:
+  <img src="screenshots/User-Profile.png" alt="User Profile">
 
 ## Features
 
@@ -41,3 +54,55 @@ Babble is a full-stack chat application built using the MERN (MongoDB, Express.j
    ```bash
    git clone https://github.com/ArchitKandu/Babble.git
    cd babble
+   ```
+
+2. Install the server dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Set up environment variables:
+   Create a ".env" file in the server directory and add the following variables:
+   MONGO_URI: mongodb+srv://architkandu:Lenovo9104@cluster0.ozbjmoq.mongodb.net/?retryWrites=true&w=majority
+   JWT_SECRET: architkandu
+   NODE_ENV: finished
+
+4. Install the client dependencies:
+
+   ```bash
+   cd frontend
+   npm install
+   ```
+
+5. Run the development server:
+
+   - Server:
+     ```bash
+     cd Babble
+     npm start
+     ```
+   - Client:
+     ```bash
+     cd frontend
+     npm start
+     ```
+
+6. Open your browser and access the app at http://localhost:3000
+
+## Usage
+
+- Register an account or log in.
+- Create a chat room or join an existing one.
+- Start chatting in real-time with other users.
+- Explore other features like user search, avatars, and more.
+
+## Contributing
+
+Contributions are welcome! If you'd like to contribute to this project, please follow these steps:
+
+- Fork the project.
+- Create a new branch for your feature or bug fix.
+- Make your changes and ensure tests pass.
+- Commit your changes.
+- Push to your fork and submit a pull request.
