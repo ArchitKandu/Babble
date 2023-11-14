@@ -61,8 +61,8 @@ Babble is a full-stack chat application built using the MERN (MongoDB, Express.j
 
 3. Set up environment variables:
    Create a ".env" file in the server directory and add the following variables:
-   MONGO_URI: <i>YOUR MONGODB URI</i>
-   JWT_SECRET: <i>YOUR JWT_SECRET</i>
+   MONGO_URI: <i>YOUR MONGODB URI</i><br/>
+   JWT_SECRET: <i>YOUR JWT_SECRET</i><br/>
    NODE_ENV: finished
 
 4. Install the client dependencies:
