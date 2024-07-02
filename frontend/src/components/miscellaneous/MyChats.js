@@ -35,6 +35,15 @@ const MyChats = ({ fetchAgain }) => {
   useEffect(() => {
     setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
     fetchChats();
+    socketRef.current = io(ENDPOINT);
+
+    socketRef.current.on("message recieved", (newMessage) => {
+      fetchChats();
+    });
+
+    return () => {
+      socketRef.current.disconnect();
+    };
   }, [fetchAgain]);
   return (
     <Box
@@ -94,7 +103,15 @@ const MyChats = ({ fetchAgain }) => {
                   {!chat.isGroupChat
                     ? getSender(loggedUser, chat.users)
                     : chat.chatName}
-                </Text>
+                </Text>{chat.latestMessage && (
+                    <Text fontSize="xs">
+                      <b>{chat.latestMessage.sender.name} : </b>
+                      {chat.latestMessage.content.length > 50
+                        ? chat.latestMessage.content.substring(0, 51) + "..."
+                        : chat.latestMessage.content}
+                    </Text>
+                  )}
+                  
               </Box>
             ))}
           </Stack>
